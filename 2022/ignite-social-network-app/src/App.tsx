@@ -1,4 +1,4 @@
-import { Header, Sidebar } from './components';
+import { Header, Post, Sidebar } from './components';
 
 import styles from './App.module.css';
 
@@ -45,7 +45,9 @@ function App() {
 
         <main>
           {posts.length > 0 && posts.map(item => (
-            <></>
+            <Post
+
+            />
           ))}
         </main>
       </div>
