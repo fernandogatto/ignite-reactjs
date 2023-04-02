@@ -1,4 +1,6 @@
-import { Header } from './components';
+import { Header, Sidebar } from './components';
+
+import styles from './App.module.css';
 
 import './global.css';
 
@@ -37,6 +39,16 @@ function App() {
   return (
     <>
       <Header />
+
+      <div className={styles.wrapper}>
+        <Sidebar />
+
+        <main>
+          {posts.length > 0 && posts.map(item => (
+            <></>
+          ))}
+        </main>
+      </div>
     </>
   )
 }
