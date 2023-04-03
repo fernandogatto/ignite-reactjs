@@ -30,7 +30,7 @@ function Post({
   content,
   publishedAt,
 }: IPost) {
-  const [comments, setComments] = useState<Array<String>>([]);
+  const [comments, setComments] = useState<Array<string>>([]);
   const [newComment, setNewComment] = useState('');
 
   const publisedDateFormatted = format(publishedAt, "d 'de' LLL 'às' HH:mm'h'", {
@@ -58,6 +58,12 @@ function Post({
     setNewComment('');
   }
 
+  function handleDeleteComment(comment: string) {
+    const filteredComments = comments.filter(item => item !== comment);
+
+    setComments(filteredComments);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -76,9 +82,9 @@ function Post({
       <div className={styles.content}>
         {content.length > 0 && content.map(item => {
           if (item.type === 'paragraph') {
-            return <p>{item.content}</p>
+            return <p key={item.content}>{item.content}</p>
           } else if (item.type === 'link') {
-            return <p><a href="">{item.content}</a></p>
+            return <p key={item.content}><a href="">{item.content}</a></p>
           }
         })}
       </div>
@@ -101,7 +107,9 @@ function Post({
       <div className={styles.commentList}>
         {comments.length > 0 && comments.map (item => (
           <Comment
+            key={item}
             content={item}
+            onDelete={handleDeleteComment}
           />
         ))}
       </div>

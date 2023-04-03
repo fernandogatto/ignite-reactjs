@@ -9,10 +9,12 @@ import styles from './styles.module.css';
 
 interface IComment {
   content: string;
+  onDelete: (comment: string) => void;
 }
 
 function Comment({
   content,
+  onDelete,
 }: IComment) {
   const currentDate = new Date();
 
@@ -24,6 +26,10 @@ function Comment({
     locale: ptBR,
     addSuffix: true,
   });
+
+  function handleDeleteComment() {
+    onDelete(content);
+  }
 
   return (
     <div className={styles.comment}>
@@ -40,7 +46,7 @@ function Comment({
               <time title={publisedDateFormatted} dateTime={currentDate.toISOString()}>{publishedDateRelativeToNow}</time>
             </div>
 
-            <button title="Deletar comentário">
+            <button onClick={handleDeleteComment} title="Deletar comentário">
               <Trash size={24} />
             </button>
           </header>
