@@ -46,7 +46,10 @@ function App() {
         <main>
           {posts.length > 0 && posts.map(item => (
             <Post
-
+              key={item.id}
+              author={item.author}
+              content={item.content}
+              publishedAt={item.publishedAt}
             />
           ))}
         </main>
