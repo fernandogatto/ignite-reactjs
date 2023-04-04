@@ -4,7 +4,9 @@ import styles from './App.module.css';
 
 import './global.css';
 
-const posts = [
+import { IPost } from './components/Post';
+
+const posts: IPost[] = [
   {
     id: 1,
     author: {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -15,11 +15,12 @@ interface IAuthor {
 }
 
 interface IContent {
-  type: string;
+  type: 'paragraph' | 'link';
   content: string;
 }
 
-interface IPost {
+export interface IPost {
+  id?: number;
   author: IAuthor;
   content: Array<IContent>;
   publishedAt: Date;
@@ -42,7 +43,7 @@ function Post({
     addSuffix: true,
   });
 
-  function handleNewCommentChange() {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('');
 
     const value = event.target.value;
@@ -50,11 +51,11 @@ function Post({
     setNewComment(value);
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event?.preventDefault();
 
     setComments([...comments, newComment]);
@@ -74,7 +75,7 @@ function Post({
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar source={author.avatarUrl} />
+          <Avatar src={author.avatarUrl} />
 
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>

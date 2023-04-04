@@ -43,7 +43,7 @@ function Comment({
     <div className={styles.comment}>
       <Avatar
         hasBorder={false}
-        source="https://github.com/diego3g.png"
+        src="https://github.com/diego3g.png"
       />
 
       <div className={styles.commentBox}>

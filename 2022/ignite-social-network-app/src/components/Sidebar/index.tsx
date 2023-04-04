@@ -13,7 +13,7 @@ function Sidebar() {
       />
 
       <div className={styles.profile}>
-        <Avatar source="https://github.com/fernandogatto.png" />
+        <Avatar src="https://github.com/fernandogatto.png" />
 
         <strong>Fernando Gatto</strong>
         <span>Web Developer</span>
