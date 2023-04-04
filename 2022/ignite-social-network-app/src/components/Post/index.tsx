@@ -43,11 +43,15 @@ function Post({
   });
 
   function handleNewCommentChange() {
-    event?.preventDefault();
+    event.target.setCustomValidity('');
 
     const value = event.target.value;
 
     setNewComment(value);
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
   function handleCreateNewComment() {
@@ -63,6 +67,8 @@ function Post({
 
     setComments(filteredComments);
   }
+
+  const isNewCommentEmpty = newComment.length === 0;
 
   return (
     <article className={styles.post}>
@@ -97,10 +103,16 @@ function Post({
           name="newComment"
           value={newComment}
           onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
         />
 
         <footer>
-          <button type="submit">Comentar</button>
+          <button
+            type="submit"
+            disabled={isNewCommentEmpty}
+          >
+            Comentar
+          </button>
         </footer>
       </form>
 
