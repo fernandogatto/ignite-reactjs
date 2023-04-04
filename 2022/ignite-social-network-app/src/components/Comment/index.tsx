@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { ThumbsUp, Trash } from 'phosphor-react';
 
 import { format, formatDistanceToNow } from 'date-fns';
@@ -16,6 +18,8 @@ function Comment({
   content,
   onDelete,
 }: IComment) {
+  const [likeCount, setLikeCount] = useState(0);
+
   const currentDate = new Date();
 
   const publisedDateFormatted = format(currentDate, "d 'de' LLL 'às' HH:mm'h'", {
@@ -29,6 +33,10 @@ function Comment({
 
   function handleDeleteComment() {
     onDelete(content);
+  }
+
+  function handleLikeComment() {
+    setLikeCount(likeCount + 1);
   }
 
   return (
@@ -55,9 +63,9 @@ function Comment({
         </div>
 
         <footer>
-          <button>
+          <button onClick={handleLikeComment}>
             <ThumbsUp />
-            Aplaudir <span>20</span>
+            Aplaudir <span>{likeCount}</span>
           </button>
         </footer>
       </div>
