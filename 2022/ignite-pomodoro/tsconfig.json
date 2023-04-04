@@ -21,6 +21,7 @@
       "@types/*": ["./src/@types/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
       "@routes/*": ["./src/routes/*"],
       "@styles/*": ["./src/styles/*"],
       "@pages/*": ["./src/pages/*"]
