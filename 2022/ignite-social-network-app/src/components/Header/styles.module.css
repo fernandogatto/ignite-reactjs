@@ -8,3 +8,9 @@
 .header img {
   height: 2rem;
 }
+
+.header p {
+  display: flex;
+  align-items: center;
+  margin-left: 0.75rem;
+}

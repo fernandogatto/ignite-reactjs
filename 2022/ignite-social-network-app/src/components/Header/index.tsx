@@ -10,7 +10,7 @@ function Header() {
         alt="Logo Ignite"
       />
 
-      <strong>Ignite Feed</strong>
+      <p><strong>Ignite Feed</strong></p>
     </header>
   );
 }
