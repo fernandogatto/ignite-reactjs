@@ -21,7 +21,7 @@ function History() {
           </thead>
           <tbody>
             {cycles.length === 0 && (
-              <tr style={{textAlign: 'center'}}>
+              <tr style={{ textAlign: 'center' }}>
                 <td colSpan={4}>Nenhum item existente</td>
               </tr>
             )}
