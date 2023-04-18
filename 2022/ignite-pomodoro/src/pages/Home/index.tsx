@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { HandPalm, Play } from 'phosphor-react'
 
-import { useCycles } from '@hooks/Cycles'
+import { useCycle } from '@hooks/CycleContext'
 
 import { Countdown, NewCycleForm } from './components'
 
@@ -21,20 +21,11 @@ const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
   minutesAmount: zod
     .number()
-    .min(1, 'O ciclo precisa ser de no mínimo 5 minutos.')
+    .min(5, 'O ciclo precisa ser de no mínimo 5 minutos.')
     .max(60, 'O ciclo precisa ser de no máximo 60 minutos.'),
 })
 
 type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
-
-interface ICycle {
-  id: string
-  task: string
-  minutesAmount: number
-  startDate: Date
-  interruptedDate?: Date
-  finishedDate?: Date
-}
 
 function Home() {
   const newCycleForm = useForm<NewCycleFormData>({
@@ -45,31 +36,14 @@ function Home() {
     },
   })
 
-  const { reset, handleSubmit } = newCycleForm
+  const { handleSubmit, reset } = newCycleForm
 
-  const {
-    activeCycle,
-    setCyclesPassed,
-    setActiveCycle,
-    setSecondsPassed,
-    handleInterruptActiveCycle,
-  } = useCycles()
+  const { activeCycle, createNewCycle, interruptActiveCycle } = useCycle()
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true)
 
   function handleCreateNewCycle(data: NewCycleFormData) {
-    const id = String(new Date().getTime())
-
-    const newCycle: ICycle = {
-      id,
-      task: data.task,
-      minutesAmount: data.minutesAmount,
-      startDate: new Date(),
-    }
-
-    setCyclesPassed(newCycle)
-    setActiveCycle(id)
-    setSecondsPassed(0)
+    createNewCycle(data)
 
     reset()
   }
@@ -84,10 +58,7 @@ function Home() {
         <Countdown />
 
         {activeCycle ? (
-          <StopCountdownButton
-            onClick={handleInterruptActiveCycle}
-            type="button"
-          >
+          <StopCountdownButton onClick={interruptActiveCycle} type="button">
             <HandPalm size={24} />
             Interromper
           </StopCountdownButton>

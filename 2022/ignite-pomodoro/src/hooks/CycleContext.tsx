@@ -1,12 +1,10 @@
 import { ReactNode, createContext, useContext, useState } from 'react'
 
-interface ICycle {
-  id: string
+import { ICycle } from '@interfaces'
+
+interface ICreateCycleData {
   task: string
   minutesAmount: number
-  startDate: Date
-  interruptedDate?: Date
-  finishedDate?: Date
 }
 
 interface ICyclesContextProps {
@@ -19,25 +17,24 @@ interface ICyclesContextProps {
   setActiveCycle: (id: string | null) => void
   setSecondsPassed: (seconds: number) => void
   setIntervalCycle: (interval: number) => void
-  handleInterruptActiveCycle: () => void
-  handleFinishActiveCycle: () => void
+  createNewCycle: (data: ICreateCycleData) => void
+  interruptActiveCycle: () => void
+  finishActiveCycle: () => void
 }
 
 interface ICyclesProviderProps {
   children: ReactNode
 }
 
-const CyclesContext = createContext({} as ICyclesContextProps)
+const CycleContext = createContext({} as ICyclesContextProps)
 
-function CyclesProvider({ children }: ICyclesProviderProps) {
+function CycleProvider({ children }: ICyclesProviderProps) {
   const [cycles, setCycles] = useState<ICycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
   const [interval, setInterval] = useState(0)
 
   const activeCycle = cycles.find((item) => item.id === activeCycleId)
-
-  console.log('cycles', cycles)
 
   function setCyclesPassed(newCycle: ICycle) {
     setCycles([...cycles, newCycle])
@@ -55,7 +52,22 @@ function CyclesProvider({ children }: ICyclesProviderProps) {
     setInterval(interval)
   }
 
-  function handleInterruptActiveCycle() {
+  function createNewCycle(data: ICreateCycleData) {
+    const id = String(new Date().getTime())
+
+    const newCycle: ICycle = {
+      id,
+      task: data.task,
+      minutesAmount: data.minutesAmount,
+      startDate: new Date(),
+    }
+
+    setCyclesPassed(newCycle)
+    setActiveCycle(id)
+    setSecondsPassed(0)
+  }
+
+  function interruptActiveCycle() {
     if (activeCycle) {
       const cycleIndex = cycles.findIndex((item) => item.id === activeCycleId)
 
@@ -70,7 +82,7 @@ function CyclesProvider({ children }: ICyclesProviderProps) {
     }
   }
 
-  function handleFinishActiveCycle() {
+  function finishActiveCycle() {
     if (activeCycle) {
       const cycleIndex = cycles.findIndex(
         (item: ICycle) => item.id === activeCycleId,
@@ -90,7 +102,7 @@ function CyclesProvider({ children }: ICyclesProviderProps) {
   }
 
   return (
-    <CyclesContext.Provider
+    <CycleContext.Provider
       value={{
         cycles,
         activeCycleId,
@@ -101,19 +113,20 @@ function CyclesProvider({ children }: ICyclesProviderProps) {
         setActiveCycle,
         setSecondsPassed,
         setIntervalCycle,
-        handleInterruptActiveCycle,
-        handleFinishActiveCycle,
+        createNewCycle,
+        interruptActiveCycle,
+        finishActiveCycle,
       }}
     >
       {children}
-    </CyclesContext.Provider>
+    </CycleContext.Provider>
   )
 }
 
-function useCycles() {
-  const context = useContext(CyclesContext)
+function useCycle() {
+  const context = useContext(CycleContext)
 
   return context
 }
 
-export { CyclesProvider, useCycles }
+export { CycleProvider, useCycle }

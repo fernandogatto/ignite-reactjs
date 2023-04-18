@@ -1,9 +1,12 @@
-import { useCycles } from '@hooks/Cycles'
+import { formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+
+import { useCycle } from '@hooks/CycleContext'
 
 import { HistoryContainer, HistoryList, Status } from './styles'
 
 function History() {
-  const { cycles } = useCycles()
+  const { cycles } = useCycle()
 
   return (
     <HistoryContainer>
@@ -31,7 +34,12 @@ function History() {
                 <tr key={item.id}>
                   <td>{item.task}</td>
                   <td>{item.minutesAmount} minutos</td>
-                  <td>{item.startDate.toISOString()}</td>
+                  <td>
+                    {formatDistanceToNow(item.startDate, {
+                      addSuffix: true,
+                      locale: ptBR,
+                    })}
+                  </td>
                   <td>
                     {!item.interruptedDate && !item.finishedDate && (
                       <Status statusColor="yellow">Em andamento</Status>

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useFormContext } from 'react-hook-form'
 
-import { useCycles } from '@hooks/Cycles'
+import { useCycle } from '@hooks/CycleContext'
 
 import { FormContainer, MinutesAmountInput, TaskInput } from './styles'
 
@@ -13,7 +13,7 @@ interface INewCycleFormProps {
 function NewCycleForm({ setIsSubmitDisabled }: INewCycleFormProps) {
   const { register, watch } = useFormContext()
 
-  const { activeCycle } = useCycles()
+  const { activeCycle } = useCycle()
 
   const isActiveCycle = !!activeCycle
 
@@ -46,8 +46,8 @@ function NewCycleForm({ setIsSubmitDisabled }: INewCycleFormProps) {
         type="number"
         id="minutesAmount"
         placeholder="00"
-        step={0}
-        min={0}
+        step={5}
+        min={5}
         max={60}
         disabled={isActiveCycle}
         {...register('minutesAmount', { valueAsNumber: true })}
