@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { differenceInSeconds } from 'date-fns'
 
-import { useCycle } from '@hooks/CycleContext'
+import { useCycle } from '@hooks/Cycle'
 
 import { CountdownContainer, Separator } from './styles'
 

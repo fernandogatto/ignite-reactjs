@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { CycleProvider } from './CycleContext'
+import { CycleProvider } from './Cycle'
 
 interface IAppProviderProps {
   children: ReactNode

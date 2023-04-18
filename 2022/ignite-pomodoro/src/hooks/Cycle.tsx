@@ -1,10 +1,17 @@
 import { ReactNode, createContext, useContext, useState } from 'react'
 
-import { ICycle } from '@interfaces'
-
 interface ICreateCycleData {
   task: string
   minutesAmount: number
+}
+
+interface ICycle {
+  id: string
+  task: string
+  minutesAmount: number
+  startDate: Date
+  interruptedDate?: Date
+  finishedDate?: Date
 }
 
 interface ICyclesContextProps {

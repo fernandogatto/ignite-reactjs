@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useFormContext } from 'react-hook-form'
 
-import { useCycle } from '@hooks/CycleContext'
+import { useCycle } from '@hooks/Cycle'
 
 import { FormContainer, MinutesAmountInput, TaskInput } from './styles'
 

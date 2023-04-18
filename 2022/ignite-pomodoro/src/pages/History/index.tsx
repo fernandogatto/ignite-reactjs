@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
-import { useCycle } from '@hooks/CycleContext'
+import { useCycle } from '@hooks/Cycle'
 
 import { HistoryContainer, HistoryList, Status } from './styles'
 

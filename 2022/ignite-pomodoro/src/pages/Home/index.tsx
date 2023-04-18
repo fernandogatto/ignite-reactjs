@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 
 import { HandPalm, Play } from 'phosphor-react'
 
-import { useCycle } from '@hooks/CycleContext'
+import { useCycle } from '@hooks/Cycle'
 
 import { Countdown, NewCycleForm } from './components'
 
