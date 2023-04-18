@@ -40,8 +40,7 @@ function CyclesProvider({ children }: ICyclesProviderProps) {
   console.log('cycles', cycles)
 
   function setCyclesPassed(newCycle: ICycle) {
-    setCycles((state) => [...state, newCycle])
-    // setCycles([...cycles, newCycle])
+    setCycles([...cycles, newCycle])
   }
 
   function setActiveCycle(id: string | null) {

@@ -1,6 +1,10 @@
+import { useCycles } from '@hooks/Cycles'
+
 import { HistoryContainer, HistoryList, Status } from './styles'
 
 function History() {
+  const { cycles } = useCycles()
+
   return (
     <HistoryContainer>
       <h1>Meu histórico</h1>
@@ -11,67 +15,38 @@ function History() {
             <tr>
               <th>Tarefa</th>
               <th>Duração</th>
-              <th>Duração</th>
+              <th>Criação</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="yellow">Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td>Há 2 meses</td>
-              <td>
-                <Status statusColor="red">Interrompido</Status>
-              </td>
-            </tr>
+            {cycles.length === 0 && (
+              <tr style={{textAlign: 'center'}}>
+                <td colSpan={4}>Nenhum item existente</td>
+              </tr>
+            )}
+
+            {cycles.length > 0 &&
+              cycles.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.task}</td>
+                  <td>{item.minutesAmount} minutos</td>
+                  <td>{item.startDate.toISOString()}</td>
+                  <td>
+                    {!item.interruptedDate && !item.finishedDate && (
+                      <Status statusColor="yellow">Em andamento</Status>
+                    )}
+
+                    {item.interruptedDate && (
+                      <Status statusColor="red">Interrompido</Status>
+                    )}
+
+                    {item.finishedDate && (
+                      <Status statusColor="green">Concluído</Status>
+                    )}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </HistoryList>
