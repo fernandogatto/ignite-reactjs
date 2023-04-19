@@ -20,8 +20,6 @@ interface ICyclesContextProps {
   amountSecondsPassed: number
   activeCycle: ICycle | undefined
   interval: number
-  setCyclesPassed: (newCycle: ICycle) => void
-  setActiveCycle: (id: string | null) => void
   setSecondsPassed: (seconds: number) => void
   setIntervalCycle: (interval: number) => void
   createNewCycle: (data: ICreateCycleData) => void
@@ -43,14 +41,6 @@ function CycleProvider({ children }: ICyclesProviderProps) {
 
   const activeCycle = cycles.find((item) => item.id === activeCycleId)
 
-  function setCyclesPassed(newCycle: ICycle) {
-    setCycles([...cycles, newCycle])
-  }
-
-  function setActiveCycle(id: string | null) {
-    setActiveCycleId((state) => id)
-  }
-
   function setSecondsPassed(seconds: number) {
     setAmountSecondsPassed(seconds)
   }
@@ -69,9 +59,9 @@ function CycleProvider({ children }: ICyclesProviderProps) {
       startDate: new Date(),
     }
 
-    setCyclesPassed(newCycle)
-    setActiveCycle(id)
-    setSecondsPassed(0)
+    setCycles([...cycles, newCycle])
+    setActiveCycleId(id)
+    setAmountSecondsPassed(0)
   }
 
   function interruptActiveCycle() {
@@ -116,8 +106,6 @@ function CycleProvider({ children }: ICyclesProviderProps) {
         amountSecondsPassed,
         activeCycle,
         interval,
-        setCyclesPassed,
-        setActiveCycle,
         setSecondsPassed,
         setIntervalCycle,
         createNewCycle,
