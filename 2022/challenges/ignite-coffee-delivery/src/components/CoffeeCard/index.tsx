@@ -2,28 +2,25 @@ import { CoffeeContainer } from './styles';
 
 import { ICoffee } from '@constants/coffees'
 
-export function CoffeeCard({
-  id,
-  name,
-  type,
-  description,
-  image,
-  price,
-}: ICoffee) {
+interface ICoffeeCardProps {
+  data: ICoffee
+}
+
+export function CoffeeCard({ data }: ICoffeeCardProps) {
   return (
     <CoffeeContainer>
-      <img src={image} alt={name} />
+      <img src={data.image} alt={data.name} />
 
       <div className="info-container">
         <div className="tags-container">
           <div className="tag-item">
-            <span>{type}</span>
+            <span>{data.type}</span>
           </div>
         </div>
 
-        <h4 className="name">{name}</h4>
+        <h4 className="name">{data.name}</h4>
 
-        <p className="description">{description}lo</p>
+        <p className="description">{data.description}lo</p>
 
         <div className="buy-container">
 

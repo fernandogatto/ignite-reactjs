@@ -58,12 +58,7 @@ export function Home() {
           {coffees.map((item) => (
             <CoffeeCard
               key={item.id}
-              id={item.id}
-              name={item.name}
-              type={item.type}
-              description={item.description}
-              image={item.image}
-              price={item.price}
+              data={item}
             />
           ))}
         </div>
