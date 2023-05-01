@@ -1,6 +1,8 @@
-import { CoffeeContainer } from './styles';
+import { CoffeeCounter } from '@components';
 
 import { ICoffee } from '@constants/coffees'
+
+import { CoffeeContainer } from './styles';
 
 interface ICoffeeCardProps {
   data: ICoffee
@@ -23,7 +25,13 @@ export function CoffeeCard({ data }: ICoffeeCardProps) {
         <p className="description">{data.description}lo</p>
 
         <div className="buy-container">
+          <div>
+            <p><span>R$</span> <strong>{data.price}</strong></p>
+          </div>
 
+          <div>
+            <CoffeeCounter product={data} />
+          </div>
         </div>
       </div>
     </CoffeeContainer>

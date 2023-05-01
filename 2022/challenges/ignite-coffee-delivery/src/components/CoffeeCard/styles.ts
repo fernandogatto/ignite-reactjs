@@ -61,5 +61,21 @@ export const CoffeeContainer = styled.div`
   .description {
     font-size: 0.875rem;
     color: ${(props) => props.theme['gray-500']};
+    margin-bottom: 2.063rem;
+  }
+
+  .buy-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    p {
+      font-size: 1.5rem;
+    }
+
+    span {
+      font-size: 1rem;
+    }
   }
 `

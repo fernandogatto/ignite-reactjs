@@ -38,8 +38,6 @@ export const HeaderContainer = styled.div`
       align-items: center;
       justify-content: center;
 
-      transition: .3s ease all;
-
       &:hover {
         background-color: ${(props) => props.theme['yellow-500']};
       }

@@ -27,4 +27,19 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Baloo 2', cursive;
     color: ${(props) => props.theme['gray-800']};
   }
+
+  button, a {
+    transition: .3s ease all;
+    border: transparent;
+    cursor: pointer;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
+  }
 `
