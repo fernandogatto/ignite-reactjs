@@ -1,0 +1,1 @@
+export { IntroIcon } from './IntroIcon'

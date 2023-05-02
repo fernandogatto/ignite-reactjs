@@ -5,6 +5,8 @@ import { addToCartAction, removeFromCartAction, removeQuantityAction } from '@re
 
 import { ICoffee } from '@constants/coffees';
 
+import { getStorage } from '@utils/storage';
+
 interface ICartProviderProps {
   children: ReactNode
 }
@@ -21,12 +23,14 @@ interface ICartContextProps {
   removeFromCart: (product: ICoffee) => void,
 }
 
-const CartContext = createContext({} as ICartContextProps)
+export const CartContext = createContext({} as ICartContextProps)
 
 function CartProvider({ children }: ICartProviderProps) {
+  const { productsStorage, quantityInCartStorage } = getStorage()
+
   const initialState = {
-    products: [],
-    quantityInCart: 0,
+    products: productsStorage,
+    quantityInCart: quantityInCartStorage,
   }
 
   const [cartState, dispatch] = useReducer(cartReducer, initialState)

@@ -1,5 +1,7 @@
 import { ICoffeeCart } from '@contexts/CartContext'
 
+import { populateStorage } from '@utils/storage'
+
 import { cartActionTypes } from './types'
 
 interface ICartState {
@@ -34,6 +36,8 @@ export function cartReducer(state: ICartState, action: any) {
 
       quantityInCart = quantityInCart + 1
 
+      populateStorage(products, quantityInCart)
+
       return {
         ...state,
         products,
@@ -55,6 +59,8 @@ export function cartReducer(state: ICartState, action: any) {
 
       quantityInCart = quantityInCart - 1
 
+      populateStorage(products, quantityInCart)
+
       return {
         ...state,
         products,
@@ -67,6 +73,8 @@ export function cartReducer(state: ICartState, action: any) {
         products.splice(productIndex, 1)
 
         quantityInCart = quantityInCart - currentProduct.quantity
+
+        populateStorage(products, quantityInCart)
       }
 
       return {
