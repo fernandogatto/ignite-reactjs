@@ -23,6 +23,11 @@ export const CounterContainer = styled.div`
     &:hover {
       color: ${(props) => props.theme['purple-700']};
     }
+
+    &:disabled {
+      opacity: .6;
+      cursor: no-drop;
+    }
   }
 `
 

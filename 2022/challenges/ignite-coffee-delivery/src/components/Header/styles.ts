@@ -30,6 +30,7 @@ export const HeaderContainer = styled.div`
     }
 
     a {
+      position: relative;
       background-color: ${(props) => props.theme['yellow-300']};
       padding: 0.625rem;
       border-radius: 6px;
@@ -44,6 +45,27 @@ export const HeaderContainer = styled.div`
 
       svg {
         color: ${(props) => props.theme['yellow-700']};
+      }
+
+      .notification {
+        position: absolute;
+        right: -0.5rem;
+        top: -0.5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 1.25rem;
+        padding: 0 0.375rem;
+        background-color: ${(props) => props.theme['yellow-700']};
+        border-radius: 1.25rem;
+
+        span {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: ${(props) => props.theme['white']};
+        }
       }
     }
   }

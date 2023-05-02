@@ -26,6 +26,8 @@ export function CoffeeCounter({ isCheckout, product }: ICoffeeCounterProps) {
     ? productExists.quantity
     : 0
 
+  const isDisabledToRemove = !!(quantity === 0)
+
   return (
     <CoffeeCounterContainer>
       <CounterContainer>
@@ -33,6 +35,7 @@ export function CoffeeCounter({ isCheckout, product }: ICoffeeCounterProps) {
           title="Remover uma quantidade"
           aria-label="Remover uma quantidade"
           onClick={() => removeQuantity(product)}
+          disabled={isDisabledToRemove}
         >
           <Minus size={14} />
         </button>

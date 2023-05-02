@@ -4,10 +4,13 @@ import { cartActionTypes } from './types'
 
 interface ICartState {
   products: Array<ICoffeeCart>
+  quantityInCart: number | 0
 }
 
 export function cartReducer(state: ICartState, action: any) {
   const products = state.products
+  let quantityInCart = state.quantityInCart
+
   const type = action.type
   const product = action.payload.product
 
@@ -29,9 +32,12 @@ export function cartReducer(state: ICartState, action: any) {
         })
       }
 
+      quantityInCart = quantityInCart + 1
+
       return {
         ...state,
         products,
+        quantityInCart,
       }
     case cartActionTypes.REMOVE_QUANTITY:
       if (currentProduct && currentProduct.id && currentProduct.quantity > 1) {
@@ -47,20 +53,26 @@ export function cartReducer(state: ICartState, action: any) {
         products.splice(productIndex, 1)
       }
 
+      quantityInCart = quantityInCart - 1
+
       return {
         ...state,
         products,
+        quantityInCart,
       }
     case cartActionTypes.REMOVE_FROM_CART:
       if (currentProduct && currentProduct.id) {
         const productIndex = products.findIndex((item) => item.id === product.id)
 
         products.splice(productIndex, 1)
+
+        quantityInCart = quantityInCart - currentProduct.quantity
       }
 
       return {
         ...state,
         products,
+        quantityInCart
       }
     default:
       throw new Error();
