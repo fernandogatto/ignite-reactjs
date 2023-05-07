@@ -4,7 +4,7 @@ import { CheckoutProductsContainer } from './styles';
 import { useCart } from '@contexts/CartContext';
 
 export function CheckoutProducts() {
-  const { products } = useCart()
+  const { products, priceInCart } = useCart()
 
   return (
     <CheckoutProductsContainer>
@@ -21,6 +21,26 @@ export function CheckoutProducts() {
         {products.length === 0 && (
           <p>Nenhum item foi selecionado</p>
         )}
+
+        <div className="price-info">
+          <p>Total de itens</p>
+
+          <span>R$ {priceInCart.toFixed(2)}</span>
+        </div>
+
+        <div className="price-info">
+          <p>Entrega</p>
+
+          <span>R$ 0.00</span>
+        </div>
+
+        <div className="price-info price-info-total">
+          <p>Total</p>
+
+          <span>R$ {priceInCart.toFixed(2)}</span>
+        </div>
+
+        <button type="submit">Confirmar pedido</button>
       </div>
     </CheckoutProductsContainer>
   )

@@ -7,11 +7,13 @@ import { cartActionTypes } from './types'
 interface ICartState {
   products: Array<ICoffeeCart>
   quantityInCart: number | 0
+  priceInCart: number | 0
 }
 
 export function cartReducer(state: ICartState, action: any) {
   const products = state.products
   let quantityInCart = state.quantityInCart
+  let priceInCart = state.priceInCart
 
   const type = action.type
   const product = action.payload.product
@@ -25,7 +27,8 @@ export function cartReducer(state: ICartState, action: any) {
 
         products[productIndex] = {
           ...products[productIndex],
-          quantity: products[productIndex].quantity + 1
+          quantity: products[productIndex].quantity + 1,
+          price: products[productIndex].price + product.price,
         }
       } else {
         products.push({
@@ -35,13 +38,15 @@ export function cartReducer(state: ICartState, action: any) {
       }
 
       quantityInCart = quantityInCart + 1
+      priceInCart = priceInCart + product.price
 
-      populateStorage(products, quantityInCart)
+      populateStorage(products, quantityInCart, priceInCart)
 
       return {
         ...state,
         products,
         quantityInCart,
+        priceInCart,
       }
     case cartActionTypes.REMOVE_QUANTITY:
       if (currentProduct && currentProduct.id && currentProduct.quantity > 1) {
@@ -49,7 +54,8 @@ export function cartReducer(state: ICartState, action: any) {
 
         products[productIndex] = {
           ...products[productIndex],
-          quantity: products[productIndex].quantity - 1
+          quantity: products[productIndex].quantity - 1,
+          price: products[productIndex].price - product.price,
         }
       } else if (currentProduct && currentProduct.id && currentProduct.quantity === 1) {
         const productIndex = products.findIndex((item) => item.id === product.id)
@@ -58,13 +64,15 @@ export function cartReducer(state: ICartState, action: any) {
       }
 
       quantityInCart = quantityInCart - 1
+      priceInCart = priceInCart - product.price
 
-      populateStorage(products, quantityInCart)
+      populateStorage(products, quantityInCart, priceInCart)
 
       return {
         ...state,
         products,
         quantityInCart,
+        priceInCart,
       }
     case cartActionTypes.REMOVE_FROM_CART:
       if (currentProduct && currentProduct.id) {
@@ -73,14 +81,16 @@ export function cartReducer(state: ICartState, action: any) {
         products.splice(productIndex, 1)
 
         quantityInCart = quantityInCart - currentProduct.quantity
+        priceInCart = priceInCart - product.price
 
-        populateStorage(products, quantityInCart)
+        populateStorage(products, quantityInCart, priceInCart)
       }
 
       return {
         ...state,
         products,
-        quantityInCart
+        quantityInCart,
+        priceInCart,
       }
     default:
       throw new Error();

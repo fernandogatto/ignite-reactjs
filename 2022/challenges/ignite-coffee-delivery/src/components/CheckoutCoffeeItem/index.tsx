@@ -25,7 +25,7 @@ export function CheckoutCoffeeItem({ data }: ICheckoutCoffeItemProps) {
       </div>
 
       <div>
-        <p><strong>{data.price}</strong></p>
+        <p><strong>R$ {(data.price).toFixed(2)}</strong></p>
       </div>
     </CheckoutCoffeeItemContainer>
   )

@@ -18,6 +18,7 @@ export interface ICoffeeCart extends ICoffee {
 interface ICartContextProps {
   products: Array<ICoffeeCart>,
   quantityInCart: number,
+  priceInCart: number,
   addToCart: (product: ICoffee) => void,
   removeQuantity: (product: ICoffee) => void,
   removeFromCart: (product: ICoffee) => void,
@@ -26,18 +27,20 @@ interface ICartContextProps {
 export const CartContext = createContext({} as ICartContextProps)
 
 function CartProvider({ children }: ICartProviderProps) {
-  const { productsStorage, quantityInCartStorage } = getStorage()
+  const { productsStorage, quantityInCartStorage, priceInCartStorage } = getStorage()
 
   const initialState = {
     products: productsStorage,
     quantityInCart: quantityInCartStorage,
+    priceInCart: priceInCartStorage,
   }
 
   const [cartState, dispatch] = useReducer(cartReducer, initialState)
-  const { products, quantityInCart } = cartState
+  const { products, quantityInCart, priceInCart } = cartState
 
   console.log('products',products)
   console.log('quantityInCart',quantityInCart)
+  console.log('priceInCart',priceInCart)
 
   function addToCart(product: ICoffee) {
     dispatch(addToCartAction(product))
@@ -55,6 +58,7 @@ function CartProvider({ children }: ICartProviderProps) {
     <CartContext.Provider value={{
       products,
       quantityInCart,
+      priceInCart,
       addToCart,
       removeQuantity,
       removeFromCart,

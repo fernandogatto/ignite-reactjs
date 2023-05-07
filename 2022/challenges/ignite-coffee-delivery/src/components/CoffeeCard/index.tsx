@@ -26,7 +26,7 @@ export function CoffeeCard({ data }: ICoffeeCardProps) {
 
         <div className="buy-container">
           <div>
-            <p><span>R$</span> <strong>{data.price}</strong></p>
+            <p><span>R$</span> <strong>{(data.price).toFixed(2)}</strong></p>
           </div>
 
           <div>

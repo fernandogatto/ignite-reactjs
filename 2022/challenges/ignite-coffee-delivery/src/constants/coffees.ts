@@ -18,7 +18,7 @@ export interface ICoffee {
   name: string
   type: Array<string>
   description: string
-  price: string
+  price: number
   image: string
 }
 
@@ -28,7 +28,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Tradicional',
     type: ['Tradicional'],
     description: 'O tradicional café feito com água quente e grãos moídos',
-    price: '9,90',
+    price: 9.90,
     image: Expresso,
   },
   {
@@ -36,7 +36,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Americano',
     type: ['Tradicional'],
     description: 'Expresso diluído, menos intenso que o tradicional',
-    price: '9,90',
+    price: 9.90,
     image: Americano,
   },
   {
@@ -44,7 +44,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Cremoso',
     type: ['Tradicional'],
     description: 'Café expresso tradicional com espuma cremosa',
-    price: '9,90',
+    price: 9.90,
     image: ExpressoCremoso,
   },
   {
@@ -52,7 +52,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Gelado',
     type: ['Tradicional', 'Gelado'],
     description: 'Bebida preparada com café expresso e cubos de gelo',
-    price: '9,90',
+    price: 9.90,
     image: ExpressoGelado,
   },
   {
@@ -60,7 +60,7 @@ export const coffees: ICoffee[] = [
     name: 'Café com Leite',
     type: ['Tradicional', 'Com leite'],
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
-    price: '9,90',
+    price: 9.90,
     image: CafeComLeite,
   },
   {
@@ -68,7 +68,7 @@ export const coffees: ICoffee[] = [
     name: 'Latte',
     type: ['Tradicional', 'Com leite'],
     description: 'Uma dose de café expresso com o dobro de leite e espuma cremosa',
-    price: '9,90',
+    price: 9.90,
     image: Latte,
   },
   {
@@ -76,7 +76,7 @@ export const coffees: ICoffee[] = [
     name: 'Latte',
     type: ['Tradicional', 'Com leite'],
     description: 'Bebida com canela feita de doses iguais de café, leite e espuma',
-    price: '9,90',
+    price: 9.90,
     image: Capuccino,
   },
   {
@@ -84,7 +84,7 @@ export const coffees: ICoffee[] = [
     name: 'Macchiato',
     type: ['Tradicional', 'Com leite'],
     description: 'Bebida com canela feita de doses iguais de café, leite e espuma',
-    price: '9,90',
+    price: 9.90,
     image: Macchiato,
   },
   {
@@ -92,7 +92,7 @@ export const coffees: ICoffee[] = [
     name: 'Mochaccino',
     type: ['Tradicional', 'Com leite'],
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
-    price: '9,90',
+    price: 9.90,
     image: Mochaccino,
   },
   {
@@ -100,7 +100,7 @@ export const coffees: ICoffee[] = [
     name: 'Chocolate Quente',
     type: ['Especial', 'Com leite'],
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
-    price: '9,90',
+    price: 9.90,
     image: ChocolateQuente,
   },
   {
@@ -108,7 +108,7 @@ export const coffees: ICoffee[] = [
     name: 'Cubano',
     type: ['Especial', 'Alcoólico', 'Gelado'],
     description: 'Drink gelado de café expresso com rum, creme de leite e hortelã',
-    price: '9,90',
+    price: 9.90,
     image: Cubano,
   },
   {
@@ -116,7 +116,7 @@ export const coffees: ICoffee[] = [
     name: 'Havaiano',
     type: ['Especial'],
     description: 'Bebida adocicada preparada com café e leite de coco',
-    price: '9,90',
+    price: 9.90,
     image: Havaiano,
   },
   {
@@ -124,7 +124,7 @@ export const coffees: ICoffee[] = [
     name: 'Árabe',
     type: ['Especial'],
     description: 'Bebida preparada com grãos de café árabe e especiarias',
-    price: '9,90',
+    price: 9.90,
     image: Arabe,
   },
   {
@@ -132,7 +132,7 @@ export const coffees: ICoffee[] = [
     name: 'Irlandês',
     type: ['Especial', 'Alcoólico'],
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
-    price: '9,90',
+    price: 9.90,
     image: Irlandes,
   },
 ]
