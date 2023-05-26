@@ -1,7 +1,8 @@
 import { CheckoutCoffeeItem } from '@components';
 
-import { CheckoutProductsContainer } from './styles';
 import { useCart } from '@contexts/CartContext';
+
+import { CheckoutProductsContainer } from './styles';
 
 export function CheckoutProducts() {
   const { products, priceInCart } = useCart()
