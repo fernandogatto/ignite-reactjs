@@ -1,5 +1,7 @@
 import { useForm, FormProvider } from 'react-hook-form';
 
+import { useCart } from '@contexts/CartContext';
+
 import { CheckoutForm, CheckoutProducts } from './components'
 
 import { CheckoutContainer } from './styles'
@@ -12,6 +14,7 @@ interface IFormInput {
   neighborhood: string
   city: string
   state: string
+  typePayment: string
 }
 
 export function Checkout() {
@@ -24,13 +27,19 @@ export function Checkout() {
       neighborhood: '',
       city: '',
       state: '',
+      typePayment: '',
     }
   })
 
   const { handleSubmit, reset } = newForm
 
+  const { setTypePaymentValue } = useCart()
+
   function onSubmit(data: any) {
     console.log(data);
+
+    reset()
+    setTypePaymentValue("")
   }
 
   return (

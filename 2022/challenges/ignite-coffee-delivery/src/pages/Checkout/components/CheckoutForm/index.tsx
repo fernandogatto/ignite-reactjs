@@ -1,39 +1,35 @@
-import { useForm, useFormContext, Controller } from 'react-hook-form';
+import { useEffect } from 'react';
+import { useFormContext, Controller } from 'react-hook-form';
 
 import InputMask from 'react-input-mask';
 
-import { CurrencyDollar, MapPinLine } from 'phosphor-react';
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from 'phosphor-react';
 
+import { useCart } from '@contexts/CartContext';
 import { defaultTheme } from '@styles/themes/default';
 
-import { CheckoutFormContainer } from './styles';
-
-interface IFormInput {
-  cep: string
-  street: string
-  number: string
-  complement: string
-  neighborhood: string
-  city: string
-  state: string
-}
+import { CheckoutFormContainer, CheckboxContainer } from './styles';
 
 export function CheckoutForm() {
   const { register, control, setValue } = useFormContext()
+
+  const { typePayment, setTypePaymentValue } = useCart()
 
   function checkCep(event: any) {
     const cep = event.target.value.replace(/\D/g, '')
 
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then((response) => response.json()).then((data) => {
-      console.log(data)
-
       setValue('street', data.logradouro)
       setValue('neighborhood', data.logradouro)
       setValue('city', data.localidade)
       setValue('state', data.uf)
     })
   }
+
+  useEffect(() => {
+    setValue('typePayment', typePayment)
+  }, [typePayment])
 
   return (
     <CheckoutFormContainer>
@@ -115,6 +111,53 @@ export function CheckoutForm() {
 
             <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
           </div>
+        </div>
+
+        <div className="form-row">
+          <CheckboxContainer
+            onClick={() => setTypePaymentValue("credit")}
+            active={typePayment === "credit"}
+          >
+            <CreditCard size={22} />
+            <input
+              type="checkbox"
+              placeholder="Cartão de crédito"
+              checked={typePayment === "credit"}
+              name="credit"
+              defaultChecked={typePayment === "credit"}
+            />
+            <label htmlFor="credit">Cartão de crédito</label>
+          </CheckboxContainer>
+
+          <CheckboxContainer
+            onClick={() => setTypePaymentValue("debit")}
+            active={typePayment === "debit"}
+          >
+            <Bank size={22} />
+            <input
+              type="checkbox"
+              placeholder="Cartão de débito"
+              checked={typePayment === "debit"}
+              name="debit"
+              defaultChecked={typePayment === "debit"}
+            />
+            <label htmlFor="debit">Cartão de débito</label>
+          </CheckboxContainer>
+
+          <CheckboxContainer
+            onClick={() => setTypePaymentValue("money")}
+            active={typePayment === "money"}
+          >
+            <Money size={22} />
+            <input
+              type="checkbox"
+              placeholder="Dinheiro"
+              checked={typePayment === "money"}
+              name="money"
+              defaultChecked={typePayment === "money"}
+            />
+            <label htmlFor="money">Dinheiro</label>
+          </CheckboxContainer>
         </div>
       </div>
     </CheckoutFormContainer>

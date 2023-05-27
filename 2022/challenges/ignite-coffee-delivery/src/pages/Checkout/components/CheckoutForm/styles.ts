@@ -37,13 +37,10 @@ export const CheckoutFormContainer = styled.div`
   .form-row {
     display: flex;
     align-items: center;
+    gap: 12px;
 
     & + .form-row {
       margin-top: 16px;
-
-      input + input {
-        margin-left: 12px;
-      }
     }
   }
 
@@ -70,5 +67,48 @@ export const CheckoutFormContainer = styled.div`
 
   #complement, #city {
     flex: 1;
+  }
+
+  .checkbox-container {
+
+  }
+`
+
+interface ICheckboxContainer {
+  active: boolean
+}
+
+export const CheckboxContainer = styled.div<ICheckboxContainer>`
+  display: flex;
+  align-items: center;
+
+  background-color: ${(props) => props.active
+    ? props.theme['purple-300']
+    : props.theme['gray-300']
+  };
+  border: 1px solid;
+  border-color: ${(props) => props.active
+    ? props.theme['purple-500']
+    : 'transparent'
+  };
+
+  padding: 16px;
+  border-radius: 6px;
+  flex: 1;
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  label {
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  svg {
+    margin-right: 12px;
+    color: ${(props) => props.theme['purple-500']};
   }
 `

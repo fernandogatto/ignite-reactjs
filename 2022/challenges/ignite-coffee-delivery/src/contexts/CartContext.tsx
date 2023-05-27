@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useReducer } from 'react';
+import { createContext, ReactNode, useContext, useReducer, useState } from 'react';
 
 import { cartReducer } from '@reducers/cart/reducer';
 import { addToCartAction, removeFromCartAction, removeQuantityAction } from '@reducers/cart/actions';
@@ -19,9 +19,11 @@ interface ICartContextProps {
   products: Array<ICoffeeCart>,
   quantityInCart: number,
   priceInCart: number,
+  typePayment: string,
   addToCart: (product: ICoffee) => void,
   removeQuantity: (product: ICoffee) => void,
   removeFromCart: (product: ICoffee) => void,
+  setTypePaymentValue: (value: string) => void,
 }
 
 export const CartContext = createContext({} as ICartContextProps)
@@ -54,14 +56,22 @@ function CartProvider({ children }: ICartProviderProps) {
     dispatch(removeFromCartAction(product))
   }
 
+  const [typePayment, setTypePayment] = useState('')
+
+  function setTypePaymentValue(value: string) {
+    setTypePayment(value)
+  }
+
   return (
     <CartContext.Provider value={{
       products,
       quantityInCart,
       priceInCart,
+      typePayment,
       addToCart,
       removeQuantity,
       removeFromCart,
+      setTypePaymentValue,
     }}>
       {children}
     </CartContext.Provider>
