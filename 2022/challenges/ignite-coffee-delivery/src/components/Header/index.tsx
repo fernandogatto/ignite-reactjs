@@ -36,8 +36,6 @@ export function Header() {
   function setCityName() {
     fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=pt`)
     .then((response) => response.json()).then((data) => {
-      console.log('data',data)
-
       setCity(data.city);
     })
   }

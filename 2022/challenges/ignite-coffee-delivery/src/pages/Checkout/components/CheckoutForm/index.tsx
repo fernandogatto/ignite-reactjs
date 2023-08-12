@@ -15,13 +15,14 @@ export function CheckoutForm() {
 
   const { typePayment, setTypePaymentValue } = useCart()
 
-  function checkCep(event: any) {
+  async function checkCep(event: any) {
     const cep = event.target.value.replace(/\D/g, '')
 
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then((response) => response.json()).then((data) => {
+      console.log('data',data)
       setValue('street', data.logradouro)
-      setValue('neighborhood', data.logradouro)
+      setValue('neighborhood', data.bairro)
       setValue('city', data.localidade)
       setValue('state', data.uf)
     })
@@ -29,6 +30,7 @@ export function CheckoutForm() {
 
   useEffect(() => {
     setValue('typePayment', typePayment)
+    console.log('typePayment',typePayment)
   }, [typePayment])
 
   return (
@@ -115,46 +117,46 @@ export function CheckoutForm() {
 
         <div className="form-row">
           <CheckboxContainer
-            onClick={() => setTypePaymentValue("credit")}
-            active={typePayment === "credit"}
+            onClick={() => setTypePaymentValue("Cartão de crédito")}
+            active={typePayment === "Cartão de crédito"}
           >
             <CreditCard size={22} />
             <input
               type="checkbox"
               placeholder="Cartão de crédito"
-              checked={typePayment === "credit"}
-              name="credit"
-              defaultChecked={typePayment === "credit"}
+              checked={typePayment === "Cartão de crédito"}
+              name="Cartão de crédito"
+              defaultChecked={typePayment === "Cartão de crédito"}
             />
-            <label htmlFor="credit">Cartão de crédito</label>
+            <label htmlFor="Cartão de crédito">Cartão de crédito</label>
           </CheckboxContainer>
 
           <CheckboxContainer
-            onClick={() => setTypePaymentValue("debit")}
-            active={typePayment === "debit"}
+            onClick={() => setTypePaymentValue("Cartão de débito")}
+            active={typePayment === "Cartão de débito"}
           >
             <Bank size={22} />
             <input
               type="checkbox"
               placeholder="Cartão de débito"
-              checked={typePayment === "debit"}
+              checked={typePayment === "Cartão de débito"}
               name="debit"
-              defaultChecked={typePayment === "debit"}
+              defaultChecked={typePayment === "Cartão de débito"}
             />
             <label htmlFor="debit">Cartão de débito</label>
           </CheckboxContainer>
 
           <CheckboxContainer
-            onClick={() => setTypePaymentValue("money")}
-            active={typePayment === "money"}
+            onClick={() => setTypePaymentValue("Dinheiro")}
+            active={typePayment === "Dinheiro"}
           >
             <Money size={22} />
             <input
               type="checkbox"
               placeholder="Dinheiro"
-              checked={typePayment === "money"}
+              checked={typePayment === "Dinheiro"}
               name="money"
-              defaultChecked={typePayment === "money"}
+              defaultChecked={typePayment === "Dinheiro"}
             />
             <label htmlFor="money">Dinheiro</label>
           </CheckboxContainer>

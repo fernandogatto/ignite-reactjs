@@ -8,7 +8,7 @@ import { coffees } from '@constants/coffees'
 
 import { defaultTheme } from '@styles/themes/default'
 
-import { IntroIcon } from './components'
+import { IntroIcon } from '@components'
 
 import { HomeContainer, BannerContainer, CoffeesContainer } from './styles'
 

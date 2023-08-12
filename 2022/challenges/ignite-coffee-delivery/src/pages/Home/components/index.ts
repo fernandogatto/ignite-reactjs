@@ -1,1 +1,0 @@
-export { IntroIcon } from './IntroIcon'
