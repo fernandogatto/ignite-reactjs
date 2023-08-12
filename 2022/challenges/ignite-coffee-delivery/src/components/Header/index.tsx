@@ -7,9 +7,40 @@ import { useCart } from '@contexts/CartContext'
 import logo from '@assets/logo.svg'
 
 import { HeaderContainer } from './styles'
+import { useEffect, useState } from 'react'
 
 export function Header() {
   const { quantityInCart } = useCart()
+
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [city, setCity] = useState('');
+
+  useEffect(() => {
+    getCurrentPosition()
+  }, [])
+
+  useEffect(() => {
+    if (latitude !== 0 && longitude !== 0) {
+      setCityName()
+    }
+  }, [latitude, longitude])
+
+  function getCurrentPosition() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+    })
+  }
+
+  function setCityName() {
+    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=pt`)
+    .then((response) => response.json()).then((data) => {
+      console.log('data',data)
+
+      setCity(data.city);
+    })
+  }
 
   return (
     <HeaderContainer>
@@ -22,7 +53,7 @@ export function Header() {
           <div id="pin-container">
             <MapPin size={22} weight="fill" />
 
-            <p>Porto Alegre</p>
+            <p>{city}</p>
           </div>
 
           <NavLink to="/checkout" title="Carrinho">
