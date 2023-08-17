@@ -1,6 +1,7 @@
 import { ICoffee } from '@constants/coffees'
 
 import { cartActionTypes } from './types'
+import { ICoffeeCart } from '@contexts/CartContext'
 
 export function addToCartAction(product: ICoffee) {
   return {
@@ -26,5 +27,11 @@ export function removeFromCartAction(product: ICoffee) {
     payload: {
       product
     }
+  }
+}
+
+export function removeAllItemsFromCartAction() {
+  return {
+    type: cartActionTypes.REMOVE_ALL_ITEMS_FROM_CART,
   }
 }

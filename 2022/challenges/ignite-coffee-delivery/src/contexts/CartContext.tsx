@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useReducer, useState } from 'react';
 
 import { cartReducer } from '@reducers/cart/reducer';
-import { addToCartAction, removeFromCartAction, removeQuantityAction } from '@reducers/cart/actions';
+import { addToCartAction, removeAllItemsFromCartAction, removeFromCartAction, removeQuantityAction } from '@reducers/cart/actions';
 
 import { ICoffee } from '@constants/coffees';
 
@@ -23,6 +23,7 @@ interface ICartContextProps {
   addToCart: (product: ICoffee) => void,
   removeQuantity: (product: ICoffee) => void,
   removeFromCart: (product: ICoffee) => void,
+  removeAllItemsFromCart: () => void,
   setTypePaymentValue: (value: string) => void,
 }
 
@@ -40,6 +41,8 @@ function CartProvider({ children }: ICartProviderProps) {
   const [cartState, dispatch] = useReducer(cartReducer, initialState)
   const { products, quantityInCart, priceInCart } = cartState
 
+  const [typePayment, setTypePayment] = useState('')
+
   console.log('products',products)
   console.log('quantityInCart',quantityInCart)
   console.log('priceInCart',priceInCart)
@@ -56,7 +59,9 @@ function CartProvider({ children }: ICartProviderProps) {
     dispatch(removeFromCartAction(product))
   }
 
-  const [typePayment, setTypePayment] = useState('')
+  function removeAllItemsFromCart() {
+    dispatch(removeAllItemsFromCartAction())
+  }
 
   function setTypePaymentValue(value: string) {
     setTypePayment(value)
@@ -71,6 +76,7 @@ function CartProvider({ children }: ICartProviderProps) {
       addToCart,
       removeQuantity,
       removeFromCart,
+      removeAllItemsFromCart,
       setTypePaymentValue,
     }}>
       {children}

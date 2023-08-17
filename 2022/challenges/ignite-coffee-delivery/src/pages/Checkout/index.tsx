@@ -8,8 +8,6 @@ import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
 
 import { CheckoutForm, CheckoutProducts } from './components'
 
-import { populateStorage } from '@utils/storage'
-
 import { SubmittedContainer, SubmittedIconContainer, CheckoutContainer, IconContainer } from './styles'
 
 import imgSuccess from '@assets/coffee-success.png'
@@ -46,9 +44,9 @@ export function Checkout() {
 
   const { handleSubmit, reset } = newForm
 
-  const { setTypePaymentValue } = useCart()
+  const { removeAllItemsFromCart, setTypePaymentValue } = useCart()
 
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({} as IFormInput)
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -57,7 +55,6 @@ export function Checkout() {
 
     setIsSubmitted(true)
 
-
     setTimeout(() => {
       reset()
 
@@ -65,7 +62,7 @@ export function Checkout() {
 
       setIsSubmitted(false)
 
-      populateStorage([], 0, 0)
+      removeAllItemsFromCart()
 
       navigate('/')
     }, 5000)
