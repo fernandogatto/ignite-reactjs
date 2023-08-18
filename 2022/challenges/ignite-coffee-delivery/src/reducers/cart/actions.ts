@@ -1,7 +1,6 @@
 import { ICoffee } from '@constants/coffees'
 
 import { cartActionTypes } from './types'
-import { ICoffeeCart } from '@contexts/CartContext'
 
 export function addToCartAction(product: ICoffee) {
   return {

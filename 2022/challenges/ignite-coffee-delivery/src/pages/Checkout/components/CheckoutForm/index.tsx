@@ -20,7 +20,6 @@ export function CheckoutForm() {
 
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
     .then((response) => response.json()).then((data) => {
-      console.log('data',data)
       setValue('street', data.logradouro)
       setValue('neighborhood', data.bairro)
       setValue('city', data.localidade)
@@ -30,7 +29,6 @@ export function CheckoutForm() {
 
   useEffect(() => {
     setValue('typePayment', typePayment)
-    console.log('typePayment',typePayment)
   }, [typePayment])
 
   return (
@@ -52,7 +50,9 @@ export function CheckoutForm() {
           <Controller
             control={control}
             name="cep"
-            render={({ field: { onChange, ref } }) => (
+            render={({
+              field: { onChange, ref },
+            }) => (
               <InputMask
                 placeholder="CEP"
                 mask="99.999-999"
@@ -66,7 +66,7 @@ export function CheckoutForm() {
 
         <div className="form-row">
           <input
-            {...register("street")}
+            {...register("street", {required: true})}
             placeholder="Rua"
             id="street"
           />
@@ -74,7 +74,7 @@ export function CheckoutForm() {
 
         <div className="form-row">
           <input
-            {...register("number")}
+            {...register("number", {required: true})}
             placeholder="Número"
             id="number"
           />
@@ -87,17 +87,17 @@ export function CheckoutForm() {
 
         <div className="form-row">
           <input
-            {...register("neighborhood")}
+            {...register("neighborhood", {required: true})}
             placeholder="Bairro"
             id="neighborhood"
           />
           <input
-            {...register("city")}
+            {...register("city", {required: true})}
             placeholder="Cidade"
             id="city"
           />
           <input
-            {...register("state")}
+            {...register("state", {required: true})}
             placeholder="Estado"
             id="state"
           />

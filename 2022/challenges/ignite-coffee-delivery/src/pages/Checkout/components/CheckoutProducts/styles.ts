@@ -49,8 +49,13 @@ export const CheckoutProductsContainer = styled.div`
 
       transition: .3s ease all;
 
-      &:hover {
+      &:hover:enabled {
         background-color: ${(props) => props.theme['yellow-700']};
+      }
+
+      &:disabled {
+        opacity: .6;
+        cursor: no-drop;
       }
     }
   }

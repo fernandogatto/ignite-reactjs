@@ -1,3 +1,5 @@
+import { useFormContext } from 'react-hook-form';
+
 import { CheckoutCoffeeItem } from '@components';
 
 import { useCart } from '@contexts/CartContext';
@@ -5,6 +7,10 @@ import { useCart } from '@contexts/CartContext';
 import { CheckoutProductsContainer } from './styles';
 
 export function CheckoutProducts() {
+  const { formState: {
+    isValid,
+  }} = useFormContext()
+
   const { products, priceInCart } = useCart()
 
   return (
@@ -41,7 +47,9 @@ export function CheckoutProducts() {
           <span>R$ {priceInCart.toFixed(2)}</span>
         </div>
 
-        <button type="submit">Confirmar pedido</button>
+        <button type="submit" disabled={!isValid}>
+          Confirmar pedido
+        </button>
       </div>
     </CheckoutProductsContainer>
   )
