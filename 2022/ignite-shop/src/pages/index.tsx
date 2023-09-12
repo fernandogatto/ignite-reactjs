@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { stripe } from '@/lib/strpe';
 import { useKeenSlider } from 'keen-slider/react';
@@ -10,11 +11,11 @@ import 'keen-slider/keen-slider.min.css';
 import Stripe from 'stripe';
 
 interface IProductProps {
-    id: String,
-    name: String,
-    description: String,
-    imageUrl: String,
-    price: number,
+    id: string,
+    name: string,
+    description: string,
+    imageUrl: string,
+    price: string,
 }
 
 interface IHomeProps {
@@ -32,21 +33,23 @@ export default function Home({ products }: IHomeProps) {
     return (
         <HomeContainer ref={sliderRef} className="keen-slider">
             {products.map(item => (
-                <ProductItem key={item.id} className="keen-slider__slide">
-                    <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        width={520}
-                        height={480}
-                        blurDataURL="data:image/jpeg..."
-                        placeholder="blur"
-                    />
+                <Link href={`/product/${item.id}`} key={item.id}>
+                    <ProductItem className="keen-slider__slide">
+                        <Image
+                            src={item.imageUrl}
+                            alt={item.name}
+                            width={520}
+                            height={480}
+                            blurDataURL="data:image/jpeg..."
+                            placeholder="blur"
+                        />
 
-                    <footer>
-                        <strong>{item.name}</strong>
-                        <span>{item.price}</span>
-                    </footer>
-                </ProductItem>
+                        <footer>
+                            <strong>{item.name}</strong>
+                            <span>{item.price}</span>
+                        </footer>
+                    </ProductItem>
+                </Link>
             ))}
         </HomeContainer>
     );
@@ -76,6 +79,6 @@ export const getStaticProps: GetStaticProps = async () => {
         props: {
             products,
         },
-        revalidate: 60 * 60, // 1 hour
+        revalidate: 60 * 60 * 1, // 1 hour
     }
 }
