@@ -1,12 +1,10 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
 
 import { stripe } from '@/lib/strpe';
 import { useKeenSlider } from 'keen-slider/react';
 
 import { HomeContainer, ProductItem } from '@/styles/pages/home';
-
-import camiseta1 from '../assets/clothes/1.png';
 
 import 'keen-slider/keen-slider.min.css';
 import Stripe from 'stripe';
@@ -40,11 +38,13 @@ export default function Home({ products }: IHomeProps) {
                         alt={item.name}
                         width={520}
                         height={480}
+                        blurDataURL="data:image/jpeg..."
+                        placeholder="blur"
                     />
 
                     <footer>
                         <strong>{item.name}</strong>
-                        <span>R$ {item.price}</span>
+                        <span>{item.price}</span>
                     </footer>
                 </ProductItem>
             ))}
@@ -52,7 +52,7 @@ export default function Home({ products }: IHomeProps) {
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const response = await stripe.products.list({
         expand: ['data.default_price']
     });
@@ -65,15 +65,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
             name: item.name,
             description: item.description,
             imageUrl: item.images[0],
-            price: price.unit_amount / 100,
+            price: new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+            }).format(Number(price.unit_amount) / 100),
         }
     })
-
-    console.log('response', response.data)
 
     return {
         props: {
             products,
-        }
+        },
+        revalidate: 60 * 60, // 1 hour
     }
 }
