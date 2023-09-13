@@ -1,6 +1,6 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import { stripe } from '@/lib/strpe';
 import Stripe from 'stripe';
@@ -22,6 +22,14 @@ interface IProductProps {
 }
 
 export default function Product({ product }: IProductProps) {
+    const { isFallback } = useRouter();
+
+    if (isFallback) {
+        return (
+            <p>Loading...</p>
+        );
+    }
+
     return (
         <ProductContainer>
             <ImageContainer>
@@ -47,13 +55,16 @@ export default function Product({ product }: IProductProps) {
     );
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+    // Buscar os produtos mais acessados
+
     return {
-        paths: []
+        paths: [],
+        fallback: true,
     }
 }
 
-export const getServerSideProps: GetServerSideProps<any, { id: string }> = async ({ params }: any) => {
+export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ params }: any) => {
     const id = params.id;
 
     const product = await stripe.products.retrieve(id, {
@@ -75,6 +86,6 @@ export const getServerSideProps: GetServerSideProps<any, { id: string }> = async
                 }).format(Number(price.unit_amount) / 100),
             },
         },
-        // revalidate: 60 * 60 * 1, // 1 hour
+        revalidate: 60 * 60 * 1, // 1 hour
     }
 }
