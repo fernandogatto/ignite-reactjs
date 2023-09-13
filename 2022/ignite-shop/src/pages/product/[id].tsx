@@ -18,6 +18,7 @@ interface IProductProps {
         description: string,
         imageUrl: string,
         price: string,
+        defaultPriceId: string,
     }
 }
 
@@ -28,6 +29,10 @@ export default function Product({ product }: IProductProps) {
         return (
             <p>Loading...</p>
         );
+    }
+
+    function handleBuyButton() {
+        console.log('defaultPriceId', product.defaultPriceId);
     }
 
     return (
@@ -47,7 +52,7 @@ export default function Product({ product }: IProductProps) {
 
                 <p>{product.description}</p>
 
-                <button>
+                <button onClick={handleBuyButton}>
                     Comprar agora
                 </button>
             </ProductDetailsContainer>
@@ -84,6 +89,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
                     style: 'currency',
                     currency: 'BRL',
                 }).format(Number(price.unit_amount) / 100),
+                defaultPriceId: price.id,
             },
         },
         revalidate: 60 * 60 * 1, // 1 hour
