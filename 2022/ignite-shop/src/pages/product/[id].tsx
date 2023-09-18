@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -56,30 +57,36 @@ export default function Product({ product }: IProductProps) {
     }
 
     return (
-        <ProductContainer>
-            <ImageContainer>
-                <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    width={520}
-                    height={480}
-                />
-            </ImageContainer>
+        <>
+            <Head>
+                <title>{product.name} | Ignite Shop</title>
+            </Head>
 
-            <ProductDetailsContainer>
-                <h1>{product.name}</h1>
-                <span>{product.price}</span>
+            <ProductContainer>
+                <ImageContainer>
+                    <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        width={520}
+                        height={480}
+                    />
+                </ImageContainer>
 
-                <p>{product.description}</p>
+                <ProductDetailsContainer>
+                    <h1>{product.name}</h1>
+                    <span>{product.price}</span>
 
-                <button
-                    onClick={handleBuyButton}
-                    disabled={isCreatingCheckoutSession}
-                >
-                    Comprar agora
-                </button>
-            </ProductDetailsContainer>
-        </ProductContainer>
+                    <p>{product.description}</p>
+
+                    <button
+                        onClick={handleBuyButton}
+                        disabled={isCreatingCheckoutSession}
+                    >
+                        Comprar agora
+                    </button>
+                </ProductDetailsContainer>
+            </ProductContainer>
+        </>
     );
 }
 
