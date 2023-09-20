@@ -4,7 +4,7 @@ import { SidebarNav } from './SidebarNav';
 
 export default function Sidebar() {
     return (
-        <Box>
+        <Box as="aside" w="64" mr="8">
             <SidebarNav />
         </Box>
     )

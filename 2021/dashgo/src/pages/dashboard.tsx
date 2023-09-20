@@ -66,7 +66,7 @@ export default function Dashboard() {
             <Header />
 
             <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-                {/* <Sidebar /> */}
+                <Sidebar />
 
                 <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
                     <Box
